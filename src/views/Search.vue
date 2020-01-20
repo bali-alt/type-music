@@ -14,7 +14,11 @@
                     :title="item.name"
                     @click="tosing(item.id)"
                 /> -->
-
+            <ul v-show="flag" class="guan">
+                <li v-for="item in list" :key="item.id" @click="tosearchdetail(item.keyword)">
+                    {{item.keyword}}
+                </li>
+            </ul>
             <div>
                 <h3>热搜榜</h3>
                 <ul class="hot">
@@ -42,20 +46,30 @@ export default {
             this.$router.go(-1)
         },
         singinput(){
-            axios.get('http://localhost:3000/search?keywords='+this.value).then(res=>{
-                console.log(res)
-                this.list=res.data.result.songs
-                if(this.value==''){
+            if(this.value==''){
                     this.list=''
                     this.flag=false
-                }else{
+                } else{
                     this.flag=true
+            axios.get('http://localhost:3000/search/suggest?keywords=' +this.value+'&type=mobile').then(res=>{
+                console.log(res)
+                this.list=res.data.result.allMatch
+            })
+        }
+        },
+    // tosing(id){
+    //     this.$store.commit('tosing',id)
+    //     window.location.reload()
+    // }
+    tosearchdetail(keyword){
+        this.flag=false
+        this.value=keyword
+        this.$router.push({
+                name:'searchdetail',
+                query:{
+                    keyword:keyword
                 }
             })
-        },
-    tosing(id){
-        this.$store.commit('tosing',id)
-        window.location.reload()
     }
     },
     mounted(){
@@ -84,5 +98,17 @@ export default {
 }
 h3{
     margin-left: 10px
+}
+.guan{
+    width: 80%;
+    position: fixed;
+    top:90px;
+    left: 10%;
+    background-color: orange;
+    opacity: 0.9;
+}
+.guan li{
+    border-bottom: 1px solid #94ff00;
+    padding: 10px
 }
 </style>
