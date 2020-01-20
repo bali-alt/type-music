@@ -16,7 +16,7 @@ export default new Vuex.Store({
   },
   getters:{
     getsingid(state){
-      return $store.state.sing
+      return state.sing
     }
   },
   modules: {

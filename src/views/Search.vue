@@ -6,14 +6,83 @@
             left-arrow
             @click-left="onClickLeft"
         />
+
+        <van-search placeholder="请输入搜索关键词" v-model="value" @input="singinput"/>
+                <!-- <van-cell
+                    v-for="item in list"
+                    :key="item.id"
+                    :title="item.name"
+                    @click="tosing(item.id)"
+                /> -->
+
+            <div>
+                <h3>热搜榜</h3>
+                <ul class="hot">
+                    <li v-for="(item,index) in hotlist" :key="item.id">
+                        <span>{{index+1}}</span>
+                        <span>{{item.searchWord}}</span>
+                    </li>
+                </ul>
+            </div>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
+    data(){
+        return {
+            value:'',
+            list: [],
+            hotlist:'',
+            flag:false
+        }
+    },
     methods:{
         onClickLeft(){
             this.$router.go(-1)
-        }
+        },
+        singinput(){
+            axios.get('http://localhost:3000/search?keywords='+this.value).then(res=>{
+                console.log(res)
+                this.list=res.data.result.songs
+                if(this.value==''){
+                    this.list=''
+                    this.flag=false
+                }else{
+                    this.flag=true
+                }
+            })
+        },
+    tosing(id){
+        this.$store.commit('tosing',id)
+        window.location.reload()
+    }
+    },
+    mounted(){
+        axios.get('http://localhost:3000/search/hot/detail').then(res=>{
+            console.log(res)
+            this.hotlist=res.data.data
+        })
     }
 }
 </script>
+<style scoped>
+.search{
+    padding-bottom: 82px
+}
+.hot li{
+    margin: 20px
+}
+.hot li span:first-child{
+    color: orange;
+    font-size: 24px;
+    padding: 0 10px
+}
+.hot li span:last-child{
+    color: #000;
+    font-size: 18px
+}
+h3{
+    margin-left: 10px
+}
+</style>

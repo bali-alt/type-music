@@ -15,14 +15,14 @@
 
         <!-- 歌曲播放 -->
         <!-- :desc="singsong.ar[0].name" 是歌曲的作者没没有加上 -->
-        <div class="sing">
+        <!-- <div class="sing">
             <van-card
                 :desc="singsong.ar[0].name"
                 :title="singsong.name"
                 :thumb="singsong.al.picUrl"
             />
         </div>
-        <audio id="mp3" :src="singurl" controls="controls" autoplay class="audio"></audio>
+        <audio id="mp3" :src="singurl" controls="controls" autoplay class="audio"></audio> -->
     </div>
 </template>
 <script>
@@ -32,16 +32,7 @@ export default {
     data(){
         return {
             flag:false,
-            singsong:{
-                ar:[{
-                    name:'默认'
-                }],
-                name:'默认',
-                al:{
-                    picUrl:'https://p2.music.126.net/lqL0xtUVSMY7zpeJPhogEw==/109951164623102435.jpg'
-                }
-            },
-            singurl:''
+            
         }
     },
     methods:{
@@ -56,17 +47,7 @@ export default {
         }
     },
     created(){
-        var pid=this.$store.state.sing
-        axios.get('http://localhost:3000/song/detail?ids='+pid).then(res=>{
-            console.log(res.data)
-            if(res.data.songs[0]){
-                this.singsong=res.data.songs[0]
-            }
-        })
-        axios.get('http://localhost:3000/song/url?id='+pid).then(res=>{
-            console.log(res)
-            this.singurl=res.data.data[0].url
-        })
+        
     },
     components:{
         About
@@ -123,20 +104,5 @@ export default {
     opacity: 0.3;
     z-index: 100
 }
-.sing{
-    width: 100%;
-    height: 80px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: #0094ff;
-}
-.audio{
-    width: 70%;
-    height: 30px;
-    position: fixed;
-    bottom: 2px;
-    right: 5px;
-    background-color: #fff
-}
+
 </style>
