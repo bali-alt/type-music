@@ -6,6 +6,7 @@
                 :desc="singsong.ar[0].name"
                 :title="singsong.name"
                 :thumb="singsong.al.picUrl"
+                @click="tosingdetail(singsong.id)"
             />
     </div>
     <audio id="mp3" :src="singurl" controls="controls" autoplay class="audio"></audio>
@@ -71,6 +72,16 @@ export default {
      singid: function (newValue, oldVal) {
         console.log( newValue, oldVal )
     }
+},
+methods:{
+  tosingdetail(id){
+    this.$router.push({
+      name:'singdetail',
+      query:{
+        id:id
+      }
+    })
+  }
 }
 }
 </script>

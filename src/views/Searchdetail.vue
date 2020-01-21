@@ -33,10 +33,10 @@ export default {
         }
     },
     mounted(){
-        console.log(this.$route.query.keyword)
+        //console.log(this.$route.query.keyword)
         this.keyword=this.$route.query.keyword
         axios.get('http://localhost:3000/search?keywords='+this.keyword).then(res=>{
-            console.log(res)
+            //console.log(res)
             this.list=res.data.result.songs
         })
     }
@@ -48,7 +48,9 @@ export default {
 }
 li{
     margin: 0 20px;
-    padding: 5px
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc
 }
 li div:first-child{
     font-size: 18px;
@@ -56,14 +58,15 @@ li div:first-child{
 }
 li div:last-child{
     margin-left: 70%;
-    color: #999
+    color: #999;
+    
 }
 li:nth-child(2n){
-    background-color: #9400ff;
+    /* background-color: #9400ff; */
     color: black;
     
 }
 li:nth-child(2n+1){
-    background-color: #0094ff;
+    /* background-color: #0094ff; */
 }
 </style>

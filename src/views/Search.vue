@@ -22,7 +22,7 @@
             <div>
                 <h3>热搜榜</h3>
                 <ul class="hot">
-                    <li v-for="(item,index) in hotlist" :key="item.id">
+                    <li v-for="(item,index) in hotlist" :key="item.id" @click="tosearchdetail(item.searchWord)">
                         <span>{{index+1}}</span>
                         <span>{{item.searchWord}}</span>
                     </li>
@@ -52,7 +52,7 @@ export default {
                 } else{
                     this.flag=true
             axios.get('http://localhost:3000/search/suggest?keywords=' +this.value+'&type=mobile').then(res=>{
-                console.log(res)
+                //console.log(res)
                 this.list=res.data.result.allMatch
             })
         }

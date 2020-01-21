@@ -7,6 +7,7 @@ import Video from '../views/Video.vue'
 import Yuncun from '../views/Yuncun.vue'
 import Search from '../views/Search.vue'
 import Searchdetail from '../views/Searchdetail.vue'
+import Singdetail from '../views/Singdetail.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ const routes = [
     path: '/searchdetail',
     name: 'searchdetail',
     component: Searchdetail
+  },
+  {
+    path: '/singdetail',
+    name: 'singdetail',
+    component: Singdetail
   }
 ]
 
