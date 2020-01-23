@@ -8,6 +8,7 @@ import Yuncun from '../views/Yuncun.vue'
 import Search from '../views/Search.vue'
 import Searchdetail from '../views/Searchdetail.vue'
 import Singdetail from '../views/Singdetail.vue'
+import Says from '../views/Says.vue'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,11 @@ const routes = [
     path: '/singdetail',
     name: 'singdetail',
     component: Singdetail
+  },
+  {
+    path:'/says',
+    name:'says',
+    component:Says
   }
 ]
 

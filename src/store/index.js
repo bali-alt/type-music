@@ -10,6 +10,12 @@ export default new Vuex.Store({
     tosing(state,id){
       state.sing=id
       localStorage.setItem('sing',JSON.stringify(state.sing))
+    },
+    changesingdetailtrue(state){
+      state.singdetail=true
+    },
+    changesingdetailfalse(state){
+      state.singdetail=false
     }
   },
   actions: {

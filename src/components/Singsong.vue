@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-show="singdetail">
         <div class="sing">
             <van-card
                 :desc="singsong.ar[0].name"
@@ -15,26 +15,62 @@
                 @click-left="onClickLeft"
                 :title="singsong.name"
             />
-            <div class="main">
+            <div class="main" @click="show=!show" v-show="!show">
                 <div class="main_bottom">
-                    <img :src="singsong.al.picUrl" id="smallImg"/>
+                    <img :src="singsong.al.picUrl" id="smallImg" @click="play"/>
                 </div>
+                <div class="text1">{{proe}}</div>
                 <div class="text">{{initNum}}</div>
+                <div class="text2">{{next}}</div>
             </div>
-            
-            <!-- <div>
-                <div v-html="singtext"></div>
-            </div> -->
-            <!-- <div slot="tags" class="custom">
-          <span class="nowTime">{{nowTime}}</span>
-          <van-slider v-model="value" class="slider" @change="onChange" />
-          <span class="totalTime">{{totalTime}}</span>
-          <van-icon name="play" v-show="showShade" class="playIcon" @click.stop="playMusic" />
-          <van-icon name="pause" v-show="!showShade" class="pauseIcon" @click.stop="timeOut" />
-          <van-icon name="weapp-nav" class="musicList" @click.stop="listFlag=!listFlag" />
-        </div> -->
+
+            <div v-show="show"
+                      @click="show=!show"
+                      class="singtext">
+                      <!-- <li>{{next}}</li>
+                      <li>{{initNum}}</li>
+                      <li>{{proe}}</li> -->
+                <li v-for="item in singtext"
+                      :key="item.id"
+                      >
+                      {{item}}
+                </li>
+            </div>
+            <div class="bottom_top">
+              <div>
+                <van-icon name="like" color="#ccc" size="34px" v-show="xin" @click="xin=!xin"/>
+                <van-icon name="like" color="red" size="34px" v-show="!xin" @click="xin=!xin"/>
+              </div>
+              <div>
+                <van-icon name="down" size="34px"/>
+              </div>
+              <div>
+                <div class="ball"></div>
+                <van-icon name="comment-o" size="44px" @click="tosays"/>
+              </div>
+            </div>
+            <div class="bottom">
+              <div>
+                <van-icon name="replay" size="24px"/>
+              </div>
+              <div>
+                <van-icon name="arrow-left" size="24px"/>
+              </div>
+              <div>
+                <van-icon name="play-circle-o" size="58px" v-show="stop" @click="bo"/>
+                <van-icon name="pause-circle-o" size="58px" v-show="!stop" @click="bostop"/>
+              </div>
+              <div>
+                <van-icon name="arrow" size="24px"/>
+              </div>
+              <div>
+                <van-icon name="other-pay" size="24px"/>
+              </div>
+            </div>
         </div>
-        <audio id="mp3" :src="singurl" controls="controls" autoplay class="audio"></audio>
+        <div class="audio">
+          <audio id="mp3" :src="singurl" controls="controls" autoplay></audio>
+        </div>
     </div>
 </template>
 <script>
@@ -57,11 +93,14 @@ export default {
             wordsTime:'',
             nowTimeSecond:'',
             flag:true,
+            next:'',
+            proe:'',
+            stop:false,
+            xin:true,
+            singdetail:'',
 
 
             details: { name: "", al: "", ar: [{ name: "" }] },
-            songWords: [],
-            musicSrc: "",
             wordsTime: [],
             initNum: '',
             show: false,
@@ -77,25 +116,33 @@ export default {
     }
   },
   mounted(){
+    clearInterval(this.timer);
+    
+    this.singdetail=this.$store.state.singdetail
     // this.$store.state.sing
     // localStorage.getItem('sing')
     // console.log(document.getElementById("mp3").currentTime)
+
+        //歌曲ID
         this.singid=this.$store.getters.getsingid
+        //获取歌曲ID详情
         axios.get('http://localhost:3000/song/detail?ids='+this.singid).then(res=>{
             console.log(res.data)
             if(res.data.songs[0]){
                 this.singsong=res.data.songs[0]
             }
         })
+        //获取歌曲ID播放地址
         axios.get('http://localhost:3000/song/url?id='+this.singid).then(res=>{
-            console.log(res)
+            //console.log(res)
             if(res.data.data[0].url){
               this.singurl=res.data.data[0].url
             }
         })
+        //获取歌词
         axios.get('http://localhost:3000/lyric?id='+this.singid).then(response=>{
             //this.singtext=res.data.lrc.lyric
-            console.log(response)
+            //console.log(response)
             if (
             response.data.lrc &&
             response.data.lrc.lyric !== "" &&
@@ -148,7 +195,6 @@ export default {
           // console.log(this.wordsTime);
           // console.log(this.songWords);
         })
-
         this.showWords()
   },
 
@@ -183,12 +229,16 @@ methods:{
         this.flag=true
         document.querySelector('.audio')
         .style.width="70%"
-        document.querySelector('#mp3')
+        document.querySelector('.audio')
         .style.height="30px"
-        document.querySelector('#mp3')
+        document.querySelector('.audio')
         .style.position="fixed"
-        document.querySelector('#mp3')
+        document.querySelector('.audio')
         .style.bottom="2px"
+        document.querySelector('#mp3')
+        .style.width="100%"
+        document.querySelector('#mp3')
+        .style.marginLeft="0px"
     },
 
 
@@ -233,7 +283,19 @@ methods:{
               this.nowTimeSecond <= this.wordsTime[i + 1]
             ) {
               this.initNum = this.singtext[i];
+              this.next=this.singtext[i+1];
+              this.proe=this.singtext[i-1];
             }
+
+            // else if(this.nowTimeSecond >= this.wordsTime[i]){
+            //   this.next=this.singtext[i]
+            //   // this.next=[...new Set(this.next)]
+            //   //console.log(this.next)
+            // }
+            // else if(this.nowTimeSecond < this.wordsTime[i]){
+            //   this.proe=this.singtext[i]
+            //   //console.log(this.proe)
+            // }
           }
         }
         //设置滑块的进度
@@ -254,12 +316,47 @@ methods:{
         this.flag=false
         document.querySelector('.audio')
         .style.width="100%"
-        document.querySelector('#mp3')
-        .style.height="10%"
-        document.querySelector('#mp3')
+        document.querySelector('.audio')
+        .style.height="8%"
+        document.querySelector('.audio')
         .style.position="fixed"
+        document.querySelector('.audio')
+        .style.bottom="80px"
         document.querySelector('#mp3')
-        .style.bottom="150px"
+        .style.width="130%"
+        document.querySelector('#mp3')
+        .style.marginLeft="-30px"
+    },
+    play(){
+      // document.getElementById("mp3").play();
+    },
+    bo(){
+      this.stop=!this.stop
+      document.getElementById("mp3").play();
+    },
+    bostop(){
+      this.stop=!this.stop
+      document.getElementById("mp3").pause();
+    },
+    tosays(){
+      this.$router.push({
+        name:'says'
+      })
+      // this.$store.commit('changesingdetailfalse')
+      // this.singdetail=this.$store.state.singdetail
+      this.flag=true
+      document.querySelector('.audio')
+      .style.width="70%"
+        document.querySelector('.audio')
+        .style.height="30px"
+        document.querySelector('.audio')
+        .style.position="fixed"
+        document.querySelector('.audio')
+        .style.bottom="2px"
+        document.querySelector('#mp3')
+        .style.width="100%"
+        document.querySelector('#mp3')
+        .style.marginLeft="0px"
     }
 
     },
@@ -285,7 +382,13 @@ methods:{
     bottom: 2px;
     right: 5px;
     background-color: #fff;
+    overflow: hidden;
     z-index: 1000
+}
+#mp3{
+  width: 100%;
+  height: 100%;
+
 }
 .main{
     width: 100%;
@@ -296,7 +399,8 @@ methods:{
     height: 200px;
     background-color: #000;
     border-radius: 50%;
-    margin-left: 80px
+    margin-left: 80px;
+    margin-top: 30px
 }
 .main_bottom img{
     width: 70%;
@@ -320,6 +424,58 @@ methods:{
     color: orange;
     font-size: 20px;
     font-weight: 700;
-    margin-top: 10px
+    margin-top: 10px;
+}
+.text1{
+  text-align: center;
+    color: #ccc;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 30px;
+}
+.text2{
+  text-align: center;
+    color: #ccc;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.singtext{
+ margin-top: 50px;
+  width: 100%;
+  height: 57%;
+  /* background-color: #94ff00; */
+  overflow: auto;
+  /* color: #fff */
+}
+.singtext li{
+  list-style: none;
+  text-align: center;
+  margin: 15px 0;
+}
+.bottom{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 60px
+}
+.bottom_top{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center
+}
+.ball{
+  width: 30px;
+  height: 30px;
+  border-radius:50%;
+  background-color: red;
+  position: fixed;
+  right: 35px;
+  bottom: 165px;
+  z-index: 10000
 }
 </style>

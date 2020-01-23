@@ -1,5 +1,6 @@
 var sing=JSON.parse(localStorage.getItem('sing'))||''
 var state={
-    sing:sing
+    sing:sing,
+    singdetail:true
 }
 export default state
