@@ -5,11 +5,14 @@
             left-arrow
             @click-left="onClickLeft"
         />
-        <ul class="box">
-            <li v-for="item in sayslist" :key="item.id">
-                <span>{{item.content}}</span>
-            </li>
-        </ul>
+        <div class="top">
+            <ul class="box">
+                <li v-for="item in sayslist" :key="item.id">
+                    <p>{{item.content}}</p>
+                    <p>{{item.time | glq}}</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
@@ -18,7 +21,9 @@ export default {
     data(){
         return {
             singid:'',
-            sayslist:''
+            sayslist:'',
+            nowTime:'',
+            timelist:[]
         }
     },
     methods:{
@@ -32,6 +37,18 @@ export default {
             console.log(res)
             this.sayslist=res.data.comments
         })
+    },
+    filters:{
+        glq(timeStamp){
+                // let timeStamp=res.data.comments[i].time
+                let year = new Date(timeStamp).getFullYear();
+                let month =new Date(timeStamp).getMonth() + 1 < 10? "0" + (new Date(timeStamp).getMonth() + 1): new Date(timeStamp).getMonth() + 1;
+                let date =new Date(timeStamp).getDate() < 10? "0" + new Date(timeStamp).getDate(): new Date(timeStamp).getDate();
+                let hh =new Date(timeStamp).getHours() < 10? "0" + new Date(timeStamp).getHours(): new Date(timeStamp).getHours();
+                let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
+                let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
+                return year + "." + month + "." + date +"."+" "+hh+":"+mm+':'+ss ;
+        }
     }
 }
 </script>
@@ -39,10 +56,15 @@ export default {
 .box{
     width: 100%;
     height: 70%;
-    overflow: auto;
-    background-color: #94ff00
+    float: left;
 }
-.box li{
-    margin: 10px
+.top li{
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ccc
 }
+
+
 </style>
