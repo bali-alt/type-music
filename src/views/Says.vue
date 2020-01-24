@@ -63,7 +63,8 @@ export default {
     padding: 10px;
     width: 80%;
     letter-spacing: 2px;
-    border-bottom: 1px solid #ccc
+    border-bottom: 1px solid #ccc;
+    line-height: 24px
 }
 
 

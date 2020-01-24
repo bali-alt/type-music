@@ -9,6 +9,7 @@ import Search from '../views/Search.vue'
 import Searchdetail from '../views/Searchdetail.vue'
 import Singdetail from '../views/Singdetail.vue'
 import Says from '../views/Says.vue'
+import Songsheetdetail from '../views/Songsheetdetail.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,11 @@ const routes = [
     path:'/says',
     name:'says',
     component:Says
+  },
+  {
+    path:'songsheetdetail',
+    name:'songsheetdetail',
+    component:Songsheetdetail
   }
 ]
 

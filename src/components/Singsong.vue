@@ -125,6 +125,7 @@ export default {
 
         //歌曲ID
         this.singid=this.$store.getters.getsingid
+        console.log(this.singid)
         //获取歌曲ID详情
         axios.get('http://localhost:3000/song/detail?ids='+this.singid).then(res=>{
             console.log(res.data)
@@ -133,11 +134,18 @@ export default {
             }
         })
         //获取歌曲ID播放地址
-        axios.get('http://localhost:3000/song/url?id='+this.singid).then(res=>{
+        axios.get('http://localhost:3000/check/music?id='+this.singid).then(res=>{
+          console.log(res)
+          if(res.data.success==true){
+            axios.get('http://localhost:3000/song/url?id='+this.singid).then(res=>{
             //console.log(res)
             if(res.data.data[0].url){
               this.singurl=res.data.data[0].url
             }
+          })
+          }else{
+            alert(res.data.message)
+          }
         })
         //获取歌词
         axios.get('http://localhost:3000/lyric?id='+this.singid).then(response=>{

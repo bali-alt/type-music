@@ -20,7 +20,6 @@
                 <div class="icon">
                     <van-icon name="calender-o" size="24px" color="#fff"/>
                 </div>
-                
                 <p>每日推荐</p>
             </div>
             <div>
@@ -48,6 +47,21 @@
                 <p>直播</p>
             </div>
         </div>
+
+
+        <!-- 歌单 -->
+
+        <h3>精品歌单</h3>
+
+        <ul class="songsheet">
+            <li
+            v-for="item in songsheetList"
+            :key="item.id"
+            @click="tosongsheetdetail(item.id)">
+                <img :src="item.coverImgUrl"/>
+                <span>{{item.name}}</span>
+            </li>
+        </ul>
     </div>
 </template>
 <script>
@@ -55,13 +69,19 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            bannerList:''
+            bannerList:'',
+            songsheetList:''
         }
     },
     mounted(){
         axios.get('http://localhost:3000/banner?type=2').then(res=>{
             //console.log(res)
             this.bannerList=res.data.banners
+        }),
+        axios.get('http://localhost:3000/top/playlist/highquality?limit=6')
+        .then(res=>{
+            console.log(res)
+            this.songsheetList=res.data.playlists
         })
     },
     methods:{
@@ -71,6 +91,14 @@ export default {
                 this.$store.commit('tosing',id)
                 window.location.reload()
             }
+        },
+        tosongsheetdetail(id){
+            this.$router.push({
+                name:'songsheetdetail',
+                query:{
+                    id:id
+                }
+            })
         }
     }
 }
@@ -108,5 +136,37 @@ img{
     margin-left: 25%;
     border-radius: 50%
 }
-
+.songsheet{
+    height: 30%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.songsheet li{
+    width: 30%;
+    height: 100%;
+    margin: 10px
+}
+.songsheet li img{
+    width: 100px;
+    height: 100px;
+}
+.songsheet li span{
+    display: block;
+    height: 28px;
+    font-size: 13px;
+    width: 100px;
+    line-height: 14px;
+    overflow: hidden;
+    white-space:normal;
+    word-break : break-all;
+    word-wrap: break-word;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+h3{
+    margin-left: 10px
+}
 </style>
