@@ -22,7 +22,7 @@ export default {
         return {
             name:'',
             songfeileiid:'',
-            songfeileidetailList:''
+            songfeileidetailList:'',
         }
     },
     methods:{
