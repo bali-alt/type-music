@@ -22,7 +22,7 @@
                 </div>
                 <p>每日推荐</p>
             </div>
-            <div>
+            <div @click="tosongfeilei">
                 <div class="icon">
                 <van-icon name="ecard-pay" size="24px" color="#fff"/>
                 </div>
@@ -62,6 +62,29 @@
                 <span>{{item.name}}</span>
             </li>
         </ul>
+
+        <h3>推荐歌单</h3>
+        <div class="songlist">
+            <div
+            v-for="item in songList"
+            :key="item.id" class="songsan"
+            @click="tosongsheetdetail(item.id)">
+                <img :src="item.picUrl"/>
+                <span>{{item.name}}</span>
+            </div>
+        </div>
+
+        <!-- 最新推荐 -->
+        <h3>最新推荐</h3>
+        <ul class="singlist">
+            <li v-for="(item,index) in singList" :key=item.id @click="tosing(item.id)">
+                <span>{{index+1}}</span>
+                <img :src="item.picUrl"/>
+                <span class="aaa">{{item.name}}</span>
+            </li>
+        </ul>
+
+        <p class="di">已经到底了~ o(*￣▽￣*)o</p>
     </div>
 </template>
 <script>
@@ -70,18 +93,32 @@ export default {
     data(){
         return {
             bannerList:'',
-            songsheetList:''
+            songsheetList:'',
+            singList:'',
+            songList:''
         }
     },
     mounted(){
+        //轮播图
         axios.get('http://localhost:3000/banner?type=2').then(res=>{
             //console.log(res)
             this.bannerList=res.data.banners
         }),
-        axios.get('http://localhost:3000/top/playlist/highquality?limit=6')
+        //歌单
+        axios.get('http://localhost:3000/top/playlist/highquality?limit=8')
         .then(res=>{
             console.log(res)
             this.songsheetList=res.data.playlists
+        })
+        //推荐歌曲
+        axios.get('http://localhost:3000/personalized/newsong').then(res=>{
+            console.log(res)
+            this.singList=res.data.result
+        })
+        //推荐歌单
+        axios.get('http://localhost:3000/personalized?limit=15').then(res=>{
+            console.log(res)
+            this.songList=res.data.result
         })
     },
     methods:{
@@ -99,11 +136,20 @@ export default {
                     id:id
                 }
             })
+            this.$store.commit('tosong',id)
+        },
+        tosongfeilei(){
+            this.$router.push({
+                name:'songfeilei'
+            })
         }
     }
 }
 </script>
 <style scoped>
+.find{
+    margin-bottom: 80px
+}
 img{
     width: 100%;
     height: 100%;
@@ -164,9 +210,69 @@ img{
     word-wrap: break-word;
 }
 ::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 h3{
     margin-left: 10px
+}
+.singlist li img{
+    width: 60px;
+    height: 60px;
+    float: left;
+}
+.singlist li{
+    width: 90%;
+    height: 60px;
+    margin-left: 5%;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px
+}
+.singlist li span:first-child{
+    display: block;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: orangered;
+    line-height: 60px;
+    float: left;
+    text-align: center
+}
+.singlist li .aaa{
+    display: block;
+    width: 50%;
+    height: 60px;
+    float: left;
+    height: 60px;
+    padding-left: 20px;
+    line-height: 60px;
+    /* font-size: 24px; */
+    color: #0094ff;
+    font-weight: 800
+}
+.songsan{
+    width: 33%;
+    height: 150px;
+    float: left;
+}
+.songsan img{
+    width: 80%;
+    height: 80px;
+    padding: 0 10%
+}
+.songlist span{
+    display: block;
+    height: 70px;
+    width: 80%;
+    padding: 0 10%;
+    font-size: 14px
+}
+.songlist{
+    width: 100%;
+}
+.di{
+    width: 100%;
+    text-align: center;
+    color: #333
 }
 </style>

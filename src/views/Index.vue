@@ -32,7 +32,6 @@ export default {
     data(){
         return {
             flag:false,
-            
         }
     },
     methods:{
@@ -47,7 +46,7 @@ export default {
         }
     },
     created(){
-        
+
     },
     components:{
         About

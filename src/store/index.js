@@ -11,12 +11,16 @@ export default new Vuex.Store({
       state.sing=id
       localStorage.setItem('sing',JSON.stringify(state.sing))
     },
-    changesingdetailtrue(state){
-      state.singdetail=true
-    },
-    changesingdetailfalse(state){
-      state.singdetail=false
+    tosong(state,id){
+      state.song=id
+      localStorage.setItem('song',JSON.stringify(state.song))
     }
+    // changesingdetailtrue(state){
+    //   state.singdetail=true
+    // },
+    // changesingdetailfalse(state){
+    //   state.singdetail=false
+    // }
   },
   actions: {
   },
