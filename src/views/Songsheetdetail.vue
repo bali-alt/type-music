@@ -88,7 +88,8 @@ export default {
 }
 .bottom ul{
     border-top: 1px solid #ccc;
-    margin-top: 0
+    margin-top: 0;
+    width: 100%;
 }
 .bottom{
     margin-top: 10px

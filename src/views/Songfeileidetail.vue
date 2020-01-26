@@ -40,7 +40,7 @@ export default {
         //console.log(this.$route.query.name)
         this.name=this.$route.query.name
         this.songfeileiid=this.$route.query.cat
-        axios.get('http://localhost:3000/top/playlist?limit=20&order=new&cat:'+this.songfeileiid)
+        axios.get('http://localhost:3000/top/playlist?limit=20&order=new&cat='+this.name)
         .then(res=>{
             console.log(res)
             this.songfeileidetailList=res.data.playlists
