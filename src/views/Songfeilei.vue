@@ -39,7 +39,7 @@ export default {
     },
     mounted(){
         axios.get('http://localhost:3000/playlist/catlist').then(res=>{
-            console.log(res)
+            //console.log(res)
             this.songfeileilist=res.data.sub
         })
     }

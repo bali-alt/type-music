@@ -125,17 +125,17 @@ export default {
 
         //歌曲ID
         this.singid=this.$store.getters.getsingid
-        console.log(this.singid)
+        //console.log(this.singid)
         //获取歌曲ID详情
         axios.get('http://localhost:3000/song/detail?ids='+this.singid).then(res=>{
-            console.log(res.data)
+            //console.log(res.data)
             if(res.data.songs[0]){
                 this.singsong=res.data.songs[0]
             }
         })
         //获取歌曲ID播放地址
         axios.get('http://localhost:3000/check/music?id='+this.singid).then(res=>{
-          console.log(res)
+          //console.log(res)
           if(res.data.success==true){
             axios.get('http://localhost:3000/song/url?id='+this.singid).then(res=>{
             //console.log(res)
@@ -375,6 +375,36 @@ methods:{
 </script>
 
 <style>
+  /* .main img{
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    
+  } */
+
+  .van-card__title {
+    max-height: 32px;
+    font-weight: 500;
+    line-height: 16px;
+    font-size: 14px;
+    color: orange
+}
+.van-card__thumb img {
+  width: 80%;
+  height: 80%;
+}
+.van-card__desc {
+    max-height: 20px;
+    color: #646566;
+    line-height: 20px;
+    margin-top: 6px;
+    font-size: 14px;
+}
+.van-image__error, .van-image__img, .van-image__loading {
+    display: block;
+    width: 80%;
+    height: 80%;
+}
   .sing{
     width: 100%;
     height: 80px;

@@ -74,7 +74,7 @@ export default {
     },
     mounted(){
         axios.get('http://localhost:3000/search/hot/detail').then(res=>{
-            console.log(res)
+            //console.log(res)
             this.hotlist=res.data.data
         })
     }

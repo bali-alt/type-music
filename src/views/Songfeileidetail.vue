@@ -42,7 +42,7 @@ export default {
         this.songfeileiid=this.$route.query.cat
         axios.get('http://localhost:3000/top/playlist?limit=20&order=new&cat='+this.name)
         .then(res=>{
-            console.log(res)
+            //console.log(res)
             this.songfeileidetailList=res.data.playlists
         })
     }

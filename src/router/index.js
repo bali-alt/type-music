@@ -12,6 +12,8 @@ import Says from '../views/Says.vue'
 import Songsheetdetail from '../views/Songsheetdetail.vue'
 import Songfeilei from '../views/Songfeilei.vue'
 import Songfeileidetail from '../views/Songfeileidetail.vue'
+import Paihanglist from '../views/Paihanglist.vue'
+import Paihangdetail from '../views/Paihangdetail.vue'
 
 Vue.use(VueRouter)
 
@@ -76,6 +78,16 @@ const routes = [
     path:'/songfeileidetail',
     name:'songfeileidetail',
     component:Songfeileidetail
+  },
+  {
+    path:'/paihanglist',
+    name:'paihanglist',
+    component:Paihanglist
+  },
+  {
+    path:'/paihangdetail',
+    name:'paihangdetail',
+    component:Paihangdetail
   }
 ]
 

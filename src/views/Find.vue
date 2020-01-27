@@ -29,7 +29,7 @@
                 <p>歌单</p>
             </div>
             <div>
-                <div class="icon">
+                <div class="icon" @click="topaihanglist">
                 <van-icon name="bar-chart-o" size="24px" color="#fff"/>
                 </div>
                 <p>排行榜</p>
@@ -107,17 +107,17 @@ export default {
         //歌单
         axios.get('http://localhost:3000/top/playlist/highquality?limit=8')
         .then(res=>{
-            console.log(res)
+            //console.log(res)
             this.songsheetList=res.data.playlists
         })
         //推荐歌曲
         axios.get('http://localhost:3000/personalized/newsong').then(res=>{
-            console.log(res)
+            //console.log(res)
             this.singList=res.data.result
         })
         //推荐歌单
         axios.get('http://localhost:3000/personalized?limit=15').then(res=>{
-            console.log(res)
+            //console.log(res)
             this.songList=res.data.result
         })
     },
@@ -141,6 +141,11 @@ export default {
         tosongfeilei(){
             this.$router.push({
                 name:'songfeilei'
+            })
+        },
+        topaihanglist(){
+            this.$router.push({
+                name:'paihanglist'
             })
         }
     }
