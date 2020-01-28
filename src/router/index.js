@@ -14,6 +14,9 @@ import Songfeilei from '../views/Songfeilei.vue'
 import Songfeileidetail from '../views/Songfeileidetail.vue'
 import Paihanglist from '../views/Paihanglist.vue'
 import Paihangdetail from '../views/Paihangdetail.vue'
+import Singer from '../views/Singer.vue'
+import Videodetail from '../views/Videodetail.vue'
+import Videosing from '../views/Videosing.vue'
 
 Vue.use(VueRouter)
 
@@ -88,6 +91,21 @@ const routes = [
     path:'/paihangdetail',
     name:'paihangdetail',
     component:Paihangdetail
+  },
+  {
+    path:'/singer',
+    name:'singer',
+    component:Singer
+  },
+  {
+    path:'/videodetail',
+    name:'videodetail',
+    component:Videodetail
+  },
+  {
+    path:'/videosing',
+    name:'videosing',
+    component:Videosing
   }
 ]
 

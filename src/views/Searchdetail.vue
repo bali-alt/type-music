@@ -6,7 +6,7 @@
             left-arrow
             @click-left="onClickLeft"
         />
-        <ul>
+        <ul class="top11">
             <li v-for="item in list" :key="item.id" @click="tosing(item.id)">
                 <div>{{item.name}}</div>
                 <div>{{item.artists[0].name}}</div>
@@ -43,8 +43,12 @@ export default {
 }
 </script>
 <style scoped>
+.top11{
+    margin-top: 46px
+}
 .searchdetail{
-    padding-bottom: 82px
+    padding-bottom: 82px;
+    overflow: hidden;
 }
 li{
     margin: 0 20px;
@@ -68,5 +72,16 @@ li:nth-child(2n){
 }
 li:nth-child(2n+1){
     /* background-color: #0094ff; */
+}
+.van-nav-bar {
+    position: relative;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+    position: fixed;
+    width: 100%;
 }
 </style>

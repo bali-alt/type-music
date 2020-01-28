@@ -1,11 +1,11 @@
 <template>
     <div class="index">
-        <div class="box">
-            <router-link to='/user'>我的</router-link>
-            <router-link to='/find'>发现</router-link>
-            <router-link to='/yuncun'>云村</router-link>
-            <router-link to='/video'>视频</router-link>
-        </div>
+            <div class="box">
+                <router-link to='/user'>我的</router-link>
+                <router-link to='/find'>发现</router-link>
+                <router-link to='/yuncun'>云村</router-link>
+                <router-link to='/video'>视频</router-link>
+            </div>
         <router-view></router-view>
 
         <van-icon name="search" @click="tosearch" class="search"/>
@@ -65,7 +65,9 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+    position: fixed;
+    top:0
+    }
 .box a{
     color:#333
 }

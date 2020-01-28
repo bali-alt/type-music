@@ -155,6 +155,10 @@ export default {
 .find{
     margin-bottom: 80px
 }
+.find[data-v-770c2473] {
+    margin-bottom: 80px;
+    margin-top: 46px;
+}
 img{
     width: 100%;
     height: 100%;
@@ -280,4 +284,7 @@ h3{
     text-align: center;
     color: #333
 }
+
+
+
 </style>

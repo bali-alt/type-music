@@ -53,6 +53,12 @@ export default {
 }
 </script>
 <style scoped>
+.says{
+    overflow: hidden;
+}
+.top{
+    margin-top: 26px
+}
 .box{
     width: 100%;
     height: 70%;
@@ -67,5 +73,15 @@ export default {
     line-height: 24px
 }
 
-
+.van-nav-bar {
+    position: relative;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+    position: fixed;
+    width: 100%;
+}
 </style>

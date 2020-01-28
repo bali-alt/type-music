@@ -66,11 +66,16 @@ export default {
 }
 </script>
 <style scoped>
+.paihangdetail{
+    margin-bottom: 80px;
+    overflow: hidden;
+}
 img{
     display: block;
     width: 100%;
     height: 240px;
     opacity: 0.7;
+    margin-top: 46px
 }
 .bottom ul{
     border-top: 1px solid #ccc;
@@ -122,5 +127,16 @@ h3{
     width: 100%;
     text-align: center;
     color: #333
+}
+.van-nav-bar {
+    position: relative;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+    position: fixed;
+    width: 100%;
 }
 </style>

@@ -63,7 +63,11 @@ export default {
 </script>
 <style scoped>
 .songsheetdetail{
-    margin-bottom: 80px
+    margin-bottom: 80px;
+    overflow: hidden;
+}
+.top{
+    margin-top: 46px
 }
 .top img{
     display: block;
@@ -79,7 +83,6 @@ export default {
 .top ul{
     display: flex;
     justify-content: space-around;
-    
 }
 .songtext{
     padding: 10px;
@@ -136,5 +139,20 @@ h3{
     width: 100%;
     text-align: center;
     color: #333
+}
+
+
+
+
+.van-nav-bar {
+    position: relative;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+    width: 100%;
+    position: fixed;
 }
 </style>

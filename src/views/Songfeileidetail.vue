@@ -6,6 +6,7 @@
             left-arrow
             @click-left="onClickLeft"
         />
+        <div class="top">
         <van-card
             v-for="item in songfeileidetailList"
             :key="item.id"
@@ -13,6 +14,7 @@
             :thumb="item.coverImgUrl"
             @click="tosongsheet(item.id)"
         />
+        </div>
     </div>
 </template>
 <script>
@@ -48,3 +50,23 @@ export default {
     }
 }
 </script>
+<style scoped>
+.songfeileidetail{
+    overflow: hidden;
+    margin-bottom: 80px
+}
+.top{
+    margin-top: 46px
+}
+.van-nav-bar {
+    position: relative;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+    position: fixed;
+    width: 100%;
+}
+</style>

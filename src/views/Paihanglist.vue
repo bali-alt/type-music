@@ -6,7 +6,7 @@
                 left-arrow
                 @click-left="onClickLeft"
             />
-        <ul>
+        <ul class="top">
             <li
             v-for="(item,index) in paihanglist"
             :key="item.id"
@@ -50,6 +50,13 @@ export default {
 }
 </script>
 <style scoped>
+.paihanglist{
+    overflow: hidden;
+    margin-bottom: 800px;
+}
+.top{
+    margin-top: 46px
+}
 img{
     width: 100px;
     height: 100px;
@@ -74,5 +81,8 @@ ul{
     margin-left: 10px;
     line-height: 100px;
     font-size: 20px;
+}
+.top[data-v-4199045e] {
+    margin-top: 0px;
 }
 </style>

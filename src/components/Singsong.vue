@@ -516,4 +516,9 @@ methods:{
   bottom: 165px;
   z-index: 10000
 }
+.main {
+    width: 100%;
+    height: 60%;
+    margin-top: 16px;
+}
 </style>
