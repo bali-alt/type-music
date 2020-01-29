@@ -6,10 +6,23 @@
             @click-left="onClickLeft"
         />
         <div class="top">
-            <ul class="box">
+            <!-- <ul class="box">
                 <li v-for="item in sayslist" :key="item.id">
                     <p>{{item.content}}</p>
                     <p>{{item.time | glq}}</p>
+                </li>
+            </ul> -->
+
+            <ul>
+                <li v-for="item in sayslist" :key="item.id" class="mvsaysli">
+                    <div>
+                        <img :src="item.user.avatarUrl"/>
+                        <div class="time">
+                            <div>{{item.user.nickname}}</div>
+                            <div>{{item.time | glq}}</div>
+                        </div>
+                    </div>
+                    <div>{{item.content}}</div>
                 </li>
             </ul>
         </div>
@@ -33,7 +46,7 @@ export default {
     },
     mounted(){
         this.singid=this.$store.state.sing
-        axios.get('http://localhost:3000/comment/music?id='+this.singid).then(res=>{
+        axios.get('http://localhost:3000/comment/music?limit=50&id='+this.singid).then(res=>{
             console.log(res)
             this.sayslist=res.data.comments
         })
@@ -55,9 +68,10 @@ export default {
 <style scoped>
 .says{
     overflow: hidden;
+    margin-bottom: 80px
 }
 .top{
-    margin-top: 26px
+    margin-top: 46px
 }
 .box{
     width: 100%;
@@ -83,5 +97,76 @@ export default {
     user-select: none;
     position: fixed;
     width: 100%;
+}
+.mvsaysli{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20px
+}
+.mvsaysli div:first-of-type{
+    width: 100%;
+    height: 40px;
+    display: flex
+}
+.mvsaysli div:first-of-type img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    float: left;
+    display: block
+}
+.mvsaysli div:first-of-type .time{
+    width: 80%;
+    float: left;
+    margin-left: 10px;
+    height: 40px;
+    margin-top: 0
+}
+.mvsaysli div:first-of-type .time div:first-of-type{
+    width: 100%;
+    height: 26px;
+    font-size: 14px;
+    display: block;
+    color: #333;
+    line-height: 26px;
+    overflow: hidden;
+}
+.mvsaysli div:first-of-type .time div:last-of-type{
+    width: 100%;
+    height: 14px;
+    font-size: 12px;
+    display: block;
+    color: #333;
+    line-height: 14px;
+}
+/* .mvsaysli div:first-of-type span:first-of-type{
+    width: 30%;
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    float: left;
+    font-size: 14px;
+    color: #333;
+    margin-left: 10%
+}
+.mvsaysli div:first-of-type span:last-of-type{
+    width: 30%;
+    overflow: auto;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    float: left;
+    font-size: 12px;
+    color: #333;
+    margin-left: 10%
+} */
+.mvsaysli div:last-of-type{
+    width: 100%;
+    margin-top: 5px;
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+    line-height: 30px
 }
 </style>

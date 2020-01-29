@@ -148,7 +148,7 @@ export default {
 }
 .cover{
     width: 45vw;
-    height: 50vw;
+    height: 60vw;
     float: left;
     margin-left: 5%;
     margin-bottom:10px
