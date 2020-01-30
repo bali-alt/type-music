@@ -6,6 +6,8 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 
 Vue.use(Vant);
+var sing=new Vue()
+export default sing;
 
 Vue.config.productionTip = false
 

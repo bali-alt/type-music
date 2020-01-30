@@ -25,6 +25,7 @@
 </template>
 <script>
 import axios from 'axios'
+import sing from '../main'
 export default {
     data(){
         return {
@@ -37,6 +38,9 @@ export default {
     methods:{
         onClickLeft(){
             this.$router.go(-1)
+        },
+        tosing(id){
+            sing.$emit('message',id)
         }
     },
     mounted(){

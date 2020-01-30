@@ -89,6 +89,7 @@
 </template>
 <script>
 import axios from 'axios'
+import sing from '../main'
 export default {
     data(){
         return {
@@ -125,8 +126,9 @@ export default {
         tosing(id){
             //console.log(id)
             if(id){
-                this.$store.commit('tosing',id)
-                window.location.reload()
+                sing.$emit('message',id)
+                // this.$store.commit('tosing',id)
+                // window.location.reload()
             }
         },
         tosongsheetdetail(id){

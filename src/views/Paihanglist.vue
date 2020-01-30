@@ -52,7 +52,7 @@ export default {
 <style scoped>
 .paihanglist{
     overflow: hidden;
-    margin-bottom: 800px;
+    margin-bottom: 80px;
 }
 .top{
     margin-top: 46px

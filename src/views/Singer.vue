@@ -34,6 +34,7 @@
 </template>
 <script>
 import axios from 'axios'
+import sing from '../main'
 export default {
     data(){
         return {
@@ -50,8 +51,9 @@ export default {
             this.$router.go(-1)
         },
         tosing(id){
-            this.$store.commit('tosing',id)
-            window.location.reload()
+            sing.$emit('message',id)
+            // this.$store.commit('tosing',id)
+            // window.location.reload()
         }
     },
     mounted(){
